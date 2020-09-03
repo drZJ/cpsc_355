@@ -1,0 +1,66 @@
+Script started on 2020-09-02 14:54:56-06:00
+]0;zhijie.xia@csa1:~/assembly/assignmentzhijie.xia@csa1:~/assembly/assignment$ gdb assign33b
+GNU gdb (GDB) Fedora 8.1.1-4.fc28
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "aarch64-redhat-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+assign33b: No such file or directory.
+(gdb) q
+]0;zhijie.xia@csa1:~/assembly/assignmentzhijie.xia@csa1:~/assembly/assignment$ gdb assign33b[K[Kb
+GNU gdb (GDB) Fedora 8.1.1-4.fc28
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "aarch64-redhat-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from assign3b...(no debugging symbols found)...done.
+(gdb) clear
+No source file specified.
+(gdb) break loop 
+Breakpoint 1 at 0x4006bc
+(gdb) r[Kdisplay $x22[K2[K1
+1: $x21 = <error: No registers.>
+(gdb) display $x21[K2
+2: $x22 = <error: No registers.>
+(gdb) display $x22[K3
+3: $x23 = <error: No registers.>
+(gdb) r
+Starting program: /home/ugd/zhijie.xia/assembly/assignment/assign3b 
+warning: the debug information found in "/usr/lib/debug//usr/lib64/ld-2.27.so.debug" does not match "/lib/ld-linux-aarch64.so.1" (CRC mismatch).
+
+Missing separate debuginfos, use: dnf debuginfo-install glibc-2.27-38.fc28.aarch64
+warning: the debug information found in "/usr/lib/debug//lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+warning: the debug information found in "/usr/lib/debug//usr/lib64/libc-2.27.so.debug" does not match "/lib64/libc.so.6" (CRC mismatch).
+
+Please enter a decimal number for x19:
+32
+The number that you enter is:32
+The positive x19 is:32
+
+The x20 result is:0
+[Inferior 1 (process 4425) exited with code 024]
+(gdb) q
+]0;zhijie.xia@csa1:~/assembly/assignmentzhijie.xia@csa1:~/assembly/assignment$ exit script
+exit
+bash: exit: script: numeric argument required
+
+Script done on 2020-09-02 14:55:52-06:00
