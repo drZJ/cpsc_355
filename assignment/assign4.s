@@ -1,5 +1,7 @@
 allocate=-(20*20*4+20*12+20*12)&-16
 
+deallocate=-allocate
+
 row_trio=20*20*4
 
 col_trio=20*20*4+20*12
@@ -13,7 +15,7 @@ i	.req	w23
 j	.req	w24
 temp	.req	w25
 offset	.req	w26
-
+temp_2	.req	w27
 
 prompt:
 	.string "Please enter a number N, such that is positive and not exceed 20: \n"
@@ -29,7 +31,7 @@ input_invalid:
 	.string "The input is :%d. Invalid!\n"
 
 number_output:
-	.string "%d  "
+	.string "%d _ "
 
 new_line:
 	.string "\n"
@@ -51,12 +53,11 @@ n:	.word 0
 
 main:
 	stp	x29,x30,[sp,-16]!
-	mov	x29,sp
 	
 
 	//allocate the memory for use
 	add	sp,sp,allocate	
-
+	mov	x29,sp
 prompt_N:
 	//prompt for an input N
 	adrp	x0,prompt
@@ -110,19 +111,28 @@ for_i_str:
 	
 for_j_str:
 	cmp	j,N
-	b.ge	i_plus_one
+	b.ge	i_plus_one_str
 
 	mul	offset,i,N
 	add	offset,offset,j
 	lsl 	offset,offset,2
 
+
 	bl	rand
 	
 	mov	temp,99
-	udiv	temp,w0,temp
+	
+	udiv	temp_2,w0,temp
+	mul	temp_2,temp_2,temp
+	sub	temp,w0,temp_2
 	add	temp,temp,1
 	
-	str	temp,[x29,offset,UXTW]	
+	str	temp,[x29,offset,SXTW]	
+
+	adrp	x0,input_valid
+	add	x0,x0,:lo12:input_valid
+	ldr	w1,[x29,offset,SXTW]
+	bl	printf
 	
 	add	j,j,1
 	b	for_j_str
@@ -130,6 +140,7 @@ for_j_str:
 i_plus_one_str:
 	
 	add	i,i,1
+	mov	j,0
 	b	for_i_str
 
 str_done:
@@ -151,7 +162,7 @@ row_reset:
 
 for_i_read_row_first:
 	cmp	i,N
-	b.ge	done__read_row_first
+	b.ge	done_read_row_first
 		
 
 for_j_read_row_first:
@@ -162,11 +173,11 @@ for_j_read_row_first:
 	add	offset,offset,j
 	lsl	offset,offset,2
 	
-	ldr	temp,[sp,offset,UXTW]
+	ldr	temp,[x29,offset,SXTW]
 
-	adrp	x0,number_out
-	add	x0,x0,:lo12:nubmer_out
-	mov	w0,temp
+	adrp	x0,number_output
+	add	x0,x0,:lo12:number_output
+	mov	w1,temp
 	bl	printf
 	
 	add	j,j,1
@@ -174,7 +185,7 @@ for_j_read_row_first:
 
 i_plus_read_row_first:
 	add	i,i,1
-
+	mov	j,0
 	adrp	x0,new_line
 	add	x0,x0,:lo12:new_line
 	bl	printf
@@ -192,6 +203,6 @@ done_read_row_first:
 
 done:
 	mov	w0,0
-	sub	sp,sp,allocate
+	add	sp,sp,deallocate
 	ldp	x29,x30,[sp],16
 	ret
